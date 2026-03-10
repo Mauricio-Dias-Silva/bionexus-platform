@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura — Professores da Natureza | Biomimética</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #040a0f;
+            --cyan: #00f5d4;
+            --purple: #a29bfe;
+            --gold: #ffd93d;
+            --green: #55efc4;
+            --coral: #fd79a8;
+            --glass: rgba(255, 255, 255, 0.025);
+            --border: rgba(0, 245, 212, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg);
+            color: #dfe6e9;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated ocean background */
+        .ocean-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: radial-gradient(ellipse at 20% 80%, rgba(0, 180, 180, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(100, 0, 200, 0.07) 0%, transparent 60%),
+                radial-gradient(ellipse at 50% 50%, rgba(0, 0, 50, 0.8) 0%, #040a0f 100%);
+        }
+
+        .wave {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            z-index: -1;
+            background: linear-gradient(90deg, var(--cyan), var(--purple), var(--cyan));
+            animation: waveShift 6s ease-in-out infinite alternate;
+            opacity: 0.3;
+        }
+
+        @keyframes waveShift {
+            from {
+                transform: scaleX(1);
+            }
+
+            to {
+                transform: scaleX(1.05) translateX(-3%);
+            }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 50px 20px 30px;
+            position: relative;
+        }
+
+        .logo-tag {
+            font-size: 0.7em;
+            letter-spacing: 5px;
+            color: var(--cyan);
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        h1 {
+            font-size: clamp(1.8em, 4vw, 2.8em);
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--cyan), var(--purple), var(--gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 10px 0 14px;
+        }
+
+        .subtitle {
+            max-width: 560px;
+            margin: 0 auto;
+            font-size: 0.88em;
+            line-height: 1.7;
+            opacity: 0.5;
+        }
+
+        /* Search */
+        .search-bar {
+            max-width: 480px;
+            margin: 30px auto 0;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            background: rgba(0, 245, 212, 0.06);
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 12px 20px 12px 50px;
+            border-radius: 50px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9em;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--cyan);
+        }
+
+        .search-bar input::placeholder {
+            opacity: 0.4;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1em;
+            opacity: 0.5;
+        }
+
+        /* Goal selector */
+        .goal-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .goal-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #ccc;
+            padding: 7px 16px;
+            border-radius: 50px;
+            font-size: 0.78em;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.25s;
+        }
+
+        .goal-btn:hover,
+        .goal-btn.active {
+            border-color: var(--cyan);
+            color: var(--cyan);
+            background: rgba(0, 245, 212, 0.08);
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 10px auto 60px;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--card-color, var(--cyan));
+            opacity: 0.6;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--card-color, var(--cyan));
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .card.hidden {
+            display: none;
+        }
+
+        .card-emoji {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .card-title {
+            font-size: 1.05em;
+            font-weight: 700;
+            color: var(--card-color, var(--cyan));
+            margin-bottom: 4px;
+        }
+
+        .card-class {
+            font-size: 0.72em;
+            opacity: 0.4;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .card-super {
+            font-size: 0.82em;
+            line-height: 1.6;
+            opacity: 0.75;
+            margin-bottom: 14px;
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+
+        .tag {
+            font-size: 0.68em;
+            padding: 3px 10px;
+            border-radius: 50px;
+            opacity: 0.8;
+            border: 1px solid var(--card-color, var(--cyan));
+            color: var(--card-color, var(--cyan));
+        }
+
+        .lesson-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 0.78em;
+            line-height: 1.7;
+            border-left: 2px solid var(--card-color, var(--cyan));
+            margin-top: 10px;
+        }
+
+        .lesson-label {
+            font-size: 0.7em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.5;
+            margin-bottom: 4px;
+        }
+
+        .source-tag {
+            margin-top: 10px;
+            font-size: 0.65em;
+            opacity: 0.35;
+            font-style: italic;
+        }
+
+        /* Detail panel */
+        #detail-panel {
+            position: fixed;
+            top: 0;
+            right: -520px;
+            bottom: 0;
+            width: min(500px, 100vw);
+            background: #06101a;
+            border-left: 1px solid rgba(0, 245, 212, 0.2);
+            padding: 40px 30px;
+            overflow-y: auto;
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 100;
+        }
+
+        #detail-panel.open {
+            right: 0;
+        }
+
+        .panel-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.4em;
+            cursor: pointer;
+            opacity: 0.5;
+        }
+
+        .panel-close:hover {
+            opacity: 1;
+        }
+
+        .panel-section {
+            margin-bottom: 24px;
+        }
+
+        .panel-label {
+            font-size: 0.68em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.4;
+            margin-bottom: 8px;
+        }
+
+        .protocol-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 0.85em;
+            line-height: 1.6;
+        }
+
+        .protocol-num {
+            min-width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--card-color, var(--cyan));
+            color: #000;
+            font-size: 0.7em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .human-box {
+            background: rgba(0, 245, 212, 0.05);
+            border: 1px solid rgba(0, 245, 212, 0.15);
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 0.85em;
+            line-height: 1.7;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.72em;
+            opacity: 0.25;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ocean-bg"></div>
+    <div class="wave"></div>
+
+    <header>
+        <div class="logo-tag">Aura Bio-Nexus</div>
+        <a href="{% url 'index' %}" class="back-link">← BIONEXUS HUB</a>
+        <h1>BIOMIMICRY</h1>
+        <p class="subtitle">3.8 bilhões de anos de P&D biológico gratuito. Cada ser é um mestre. Aprenda com eles.</p>
+
+        <div class="search-bar">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Buscar espécie ou superpoder..." oninput="filterCards()">
+        </div>
+    </header>
+
+    <div class="goal-bar">
+        <button class="goal-btn active" onclick="setGoal('', this)">Todos</button>
+        <button class="goal-btn" onclick="setGoal('regenerar', this)">🔄 Regeneração</button>
+        <button class="goal-btn" onclick="setGoal('imortalidade', this)">♾ Imortalidade</button>
+        <button class="goal-btn" onclick="setGoal('cérebro', this)">🧠 Cérebro/Cognição</button>
+        <button class="goal-btn" onclick="setGoal('câncer', this)">🛡 Anti-Câncer</button>
+        <button class="goal-btn" onclick="setGoal('sobreviv', this)">⚡ Sobrevivência</button>
+        <button class="goal-btn" onclick="setGoal('cura acústica', this)">🌊 Cura Acústica</button>
+    </div>
+
+    <div class="grid" id="grid"></div>
+
+    <!-- Detail Slide Panel -->
+    <div id="detail-panel">
+        <button class="panel-close" onclick="closePanel()">✕</button>
+        <div id="panel-content"></div>
+    </div>
+
+    <footer>Aura Bio-Nexus · Biomimética Planetária · Dados: NSF, NIH, MIT, Smithsonian 2025/2026</footer>
+
+    <script>
+        const SPECIES = [
+            {
+                emoji: "🦎", name: "Axolotl", color: "#00f5d4",
+                classe: "Anfíbio (Ambystoma mexicanum)",
+                superpoder: "Regeneração completa de membros, medula espinhal, coração e partes do cérebro — ao longo de toda a vida.",
+                genes: ["WNT2b", "FGF8", "SHOX", "HAND2-SHH", "CYP26B1"],
+                mecanismo: "Células adultas des-diferenciam para blastema e recomeçam como embrionárias. CYP26B1 regula o gradiente de ácido retinóico que posiciona cada estrutura.",
+                licao: "Os mesmos genes WNT, FGF e CYP26B1 existem em humanos, mas estão silenciados. Ativá-los é a chave para regeneração de membros humanos.",
+                protocolo: ["Retinoic Acid gradient modulation (pesquisa ativa)", "FGF8 agonists (crescimento tecidual)", "WNT pathway activation via LLLT (laser de baixa intensidade)"],
+                tags: ["Regeneração", "Medula", "Coração"],
+                fonte: "NSF / Smithsonian 2025",
+                tempo: "4-8 semanas (membro completo)"
+            },
+            {
+                emoji: "🪱", name: "Planária", color: "#a29bfe",
+                classe: "Platelminto (Dugesia species)",
+                superpoder: "Biologicamente imortal. Regenera qualquer parte do corpo — incluindo a cabeça — de fragmentos minúsculos.",
+                genes: ["PIWI", "WNT", "BMP", "notum"],
+                mecanismo: "Neoblastos (células-tronco únicas) ativados por sinais de LONGA DISTÂNCIA do intestino — não dos vizinhos imediatos, como em outros animais.",
+                licao: "O intestino humano também regula stem cells sistemicamente. Microbioma saudável + jejum intermitente de 16-24h ativa stem cells (MIT 2018).",
+                protocolo: ["Jejum intermitente 16:8 (ativa stem cells)", "Probióticos + prebióticos (microbioma)", "PIWI pathway research (futuro CRISPR)"],
+                tags: ["Imortalidade", "Stem Cells", "Intestino"],
+                fonte: "ScienceDaily / EurekaAlert 2025",
+                tempo: "Horas a dias"
+            },
+            {
+                emoji: "💧", name: "Hidra", color: "#74b9ff",
+                classe: "Cnidária (Hydra vulgaris)",
+                superpoder: "Biologicamente imortal — stem cells em divisão perpétua. Não envelhece. WNT determina identidade de cada tecido.",
+                genes: ["WNT3", "FoxO (FOXO3)", "Bcl-2"],
+                mecanismo: "Gene FOXO3 mantém as stem cells eternamente jovens. WNT signaling determina polaridade (cabeça vs pé). Bcl-2 bloqueia apoptose desnecessária.",
+                licao: "Variante especial de FOXO3 é encontrada em 100% dos centenários humanos estudados. Ativado por restrição calórica, NMN e jejum. Você já tem esse gene.",
+                protocolo: ["NMN ou NR (NAD+ precursors)", "Jejum prolongado 24-48h (reset FOXO3)", "Metformin (ativação de AMPK)", "Rapamicina low-dose (longevidade)"],
+                tags: ["Imortalidade", "Longevidade", "FOXO3"],
+                fonte: "NIH PubMed 2025 / BioRxiv",
+                tempo: "Dias (qualquer estrutura)"
+            },
+            {
+                emoji: "🦎", name: "Lagartixa", color: "#55efc4",
+                classe: "Réptil (Gekkonidae)",
+                superpoder: "Regeneração funcional da cauda: músculo, nervo e cartilagem em 2-4 semanas. Mecanismo difuso único.",
+                genes: ["WNT2b", "MAPK/FGF", "EGfl6", "ARHGAP28"],
+                mecanismo: "Clusters de células proliferantes distribuídos ao longo do eixo (diferente do axolotl que tem blastema central). WNT + MAPK coordenam a regrowth.",
+                licao: "Humanos já usam esse mecanismo difuso para regenerar o fígado (70% de remoção → regeneração completa). O segredo é expandir essa rede para outros órgãos.",
+                protocolo: ["IGF-1 stimulation (fator de crescimento)", "EPO - Eritropoietina (regeneração tecidual)", "LLLT - Laser de baixa intensidade na área afetada"],
+                tags: ["Regeneração", "Fígado", "Nervos"],
+                fonte: "NIH PubMed / ResearchGate",
+                tempo: "2-4 semanas (cauda)"
+            },
+            {
+                emoji: "⭐", name: "Estrela-do-Mar", color: "#ffd93d",
+                classe: "Equinodermata (Asteroidea)",
+                superpoder: "Regenera braços perdidos. Pode reconstruir o corpo inteiro a partir de um único braço.",
+                genes: ["Skeletogenic GRN", "CCK-neurohormone", "Wnt"],
+                mecanismo: "Redes regulatórias de genes embrionários (embryonic GRN) são REATIVADAS no adulto após perda do braço. O hormônio CCK inicia a autotomia controlada.",
+                licao: "Nossa colecistocinina (CCK) humana é análoga ao neurohormônio da estrela. Já produzimos esse sinal — a questão é direcioná-lo à regeneração óssea.",
+                protocolo: ["CCK optimization (via dieta proteica)", "Bone marrow stimulation (G-CSF)", "Embryonic GRN reactivation via CRISPR (futuro)"],
+                tags: ["Osso", "Regeneração Embrionária", "CCK"],
+                fonte: "SciTechDaily 2024 / ResearchGate 2025",
+                tempo: "Semanas a meses"
+            },
+            {
+                emoji: "🦈", name: "Tubarão", color: "#fd79a8",
+                classe: "Condrictes (Selachimorpha)",
+                superpoder: "Resistência quase total ao câncer. Regenera dentes em ciclos de 8-10 dias. Sistema imune antiquíssimo e ultra-eficiente.",
+                genes: ["TP53", "PTEN", "Squalamine genes"],
+                mecanismo: "Alta expressão de TP53 (guardião do genoma) e PTEN (freio de tumores) torna seus tecidos resistentes a transformação cancerígena. Squalamine é antitumoral natural.",
+                licao: "Curcumina e resveratrol ativam TP53 em humanos. Sulforaphane (brócolis) ativa Nrf2 + TP53. Esses suplementos mimetizam a bioquímica anti-câncer do tubarão.",
+                protocolo: ["Curcumin 500mg/dia (ativa TP53)", "Resveratrol 250mg/dia", "Sulforaphane (brócolis cru ou germinado)", "Squalamine derivatives (pesquisa ativa)"],
+                tags: ["Anti-Câncer", "TP53", "Imunidade"],
+                fonte: "Nature / NIH Genetics",
+                tempo: "Dente: 8-10 dias"
+            },
+            {
+                emoji: "🐻", name: "Tardígrado", color: "#e17055",
+                classe: "Tardigrada ('Urso d'Água')",
+                superpoder: "Sobrevive ao vácuo do espaço, -273°C, +150°C, radiação 1000x letal e desidratação total. O ser mais resiliente da Terra.",
+                genes: ["Dsup (DNA suppressor)", "Trehalose synthase", "IDPs"],
+                mecanismo: "Proteína Dsup envolve o DNA físicamente, como uma armadura eletrostática contra radiação. Trehalose substitui a água nas células durante criptobiose.",
+                licao: "Tokyo University 2025: Dsup inserida em células humanas reduz danos por radiação em 40%! Melatonina e astaxanthin são análogos naturais disponíveis hoje.",
+                protocolo: ["Astaxanthin 4-12mg/dia (anti-radiação, anti-oxidante)", "Melatonina 0.5-5mg (radio-protetor + sono)", "Trehalose suplementar (pesquisa)"],
+                tags: ["Sobrevivência", "DNA", "Anti-Radiação"],
+                fonte: "Tokyo University 2025 / Nature",
+                tempo: "Horas (de criptobiose)"
+            },
+            {
+                emoji: "🐙", name: "Polvo", color: "#b2bec3",
+                classe: "Molusca Cephalopoda (Octopada)",
+                superpoder: "Edição de RNA em tempo real — 60% dos neurônios têm RNA re-editado! Regeneração de braços. Inteligência distribuída.",
+                genes: ["ADAR1", "ADAR2", "Chromatophore signaling"],
+                mecanismo: "Enzimas ADAR re-editam RNA massivamente em ambientes frios, alterando proteínas sem tocar no DNA. Cada braço tem neurônios próprios — inteligência descentralizada.",
+                licao: "Humanos têm ADAR mas usam &lt;1%. Exposição ao frio (Wim Hof) ativa ADAR e aumenta plasticidade cognitiva. DHA mantém membranas neuronais fluidas para edição de RNA.",
+                protocolo: ["Cold water immersion 2-5 min (banco de gelo Wim Hof)", "Omega-3 DHA 2g/dia (fluidez neuronal)", "Respiração Wim Hof (ativa cascatas neurais)"],
+                tags: ["Cérebro", "RNA", "Plasticidade"],
+                fonte: "Science Magazine / Recife Marine 2024",
+                tempo: "Braço: semanas"
+            },
+            {
+                emoji: "🐬", name: "Golfinho", color: "#a29bfe",
+                classe: "Mamífero Cetáceo (Delphinidae — Tursiops truncatus)",
+                superpoder: "Neocórtex com MAIOR gyrificação do planeta. Biosonar 4x mais potente que ultrassom médico. Von Economo Neurons = empatia profunda. Cura acústica comprovada em EEG.",
+                genes: ["VEN genes (Von Economo Neurons)", "CLOCK genes", "Auditory cortex hyperdevelopment"],
+                mecanismo: "Biosonar de 200kHz cria imagem 3D interna de objetos e tecidos. VENs processam emoções e empatia de velocidade extrema. Dorme com metade do cérebro ativo.",
+                licao: "Sobre 'telepatia': não há evidências científicas de telepatia literal. MAS: o biosonar cria campos acústicos que sincronizam EEG humano de formas que ultrassom artificial NÃO reproduz (FU Berlin 2023). Dolphin-Assisted Therapy (DAT) muda ondas cerebrais em casos de autismo e PTSD.",
+                protocolo: ["Sons binaurais 200Hz (simulação biosonar)", "Dolphin-Assisted Therapy — DAT", "Imersão sonora oceânica 432Hz", "Meditação com sons de cetáceos (ativação VENs)"],
+                tags: ["Cérebro", "Cura Acústica", "Empatia", "Biosonar"],
+                fonte: "American Scientist / NIH / FU Berlin 2023 / Coastal Univ 2025",
+                tempo: "DAT: sessões 30-60 min"
+            },
+            {
+                emoji: "🐋", name: "Baleia", color: "#0984e3",
+                classe: "Cetáceo (Balaena mysticetus / Physeter macrocephalus)",
+                superpoder: "OS SERES MAIS ANTIGOS DO PLANETA. Baleia de Boreal: até 268 anos SEM CÂNCER. Cachalote: maior cérebro já existiu (9kg). Infrassom viaja 20.000km. CIRBP: reparo de DNA perfeito. Guardiãs da memória akáshica oceânica.",
+                genes: ["CIRBP (Cold-Induced DNA Repair Master)", "PCNA (DNA polymerase clamp)", "ERCC1 (excision repair)", "TP53", "VEN genes"],
+                mecanismo: "CIRBP em concentrações altíssimas = reparo ultra-eficiente do DNA antes que erros acumulem (estratégia de fidelidade, não eliminação). PCNA + ERCC1 detectam e corrigem danos genéticos com uma eficiência 10x maior. Infrassom 10-31kHz atravessa oceanos inteiros.",
+                licao: "Os Sirianos descrevem as baleias como guardiãs da memória planetária — e a ciência confirma: CIRBP e PCNA existem em humanos mas são MENOS EFICIENTES. Cold therapy ativa CIRBP em células humanas. As baleias resolveram o Paradoxo de Peto: ter bilhões de células e zero câncer.",
+                protocolo: ["Cold therapy / crioimersão 10-15 min/dia (ativa CIRBP humano)", "Meditação com infrassom de baleias azuis (ondas theta 6-8Hz)", "Curcumina + Zinco (cofatores ERCC1 para reparo de DNA)", "Jejum prolongado 24-48h (ativa PCNA pathway)", "Sons de baleias em meditação profunda (sincronização akáshica)"],
+                tags: ["Longevidade", "Anti-Câncer", "DNA", "Memória Planetária", "Infrassom"],
+                fonte: "PolarJournal 2025/2026 / Smithsonian / The Guardian / NIH PubMed / Rochester Univ",
+                tempo: "Lifespan: 200-268 anos sem câncer"
+            }
+        ];
+
+        function buildCards() {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = '';
+            SPECIES.forEach((sp, idx) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.style.setProperty('--card-color', sp.color);
+                card.dataset.search = `${sp.name} ${sp.superpoder} ${sp.tags.join(' ')} ${sp.mecanismo}`.toLowerCase();
+                card.onclick = () => openPanel(idx);
+
+                card.innerHTML = `
+                    <span class="card-emoji">${sp.emoji}</span>
+                    <div class="card-title">${sp.name}</div>
+                    <div class="card-class">${sp.classe}</div>
+                    <div class="card-super">${sp.superpoder}</div>
+                    <div class="tag-row">${sp.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+                    <div class="lesson-box">
+                        <div class="lesson-label">💡 Lição para a humanidade</div>
+                        ${sp.licao}
+                    </div>
+                    <div class="source-tag">🔬 ${sp.fonte} · ⏱ ${sp.tempo}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCards() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            document.querySelectorAll('.card').forEach(card => {
+                card.classList.toggle('hidden', !card.dataset.search.includes(query));
+            });
+        }
+
+        function setGoal(keyword, btn) {
+            document.querySelectorAll('.goal-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('searchInput').value = keyword;
+            filterCards();
+        }
+
+        function openPanel(idx) {
+            const sp = SPECIES[idx];
+            document.documentElement.style.setProperty('--card-color', sp.color);
+
+            const content = document.getElementById('panel-content');
+            content.innerHTML = `
+                <div style="font-size:3em; margin-bottom:10px;">${sp.emoji}</div>
+                <div style="font-size:1.6em; font-weight:700; color:${sp.color}; margin-bottom:4px;">${sp.name}</div>
+                <div style="font-size:0.72em; opacity:0.4; letter-spacing:1px; text-transform:uppercase; margin-bottom:20px;">${sp.classe}</div>
+
+                <div class="panel-section">
+                    <div class="panel-label">🦾 Superpoder</div>
+                    <div style="font-size:0.9em; line-height:1.7; opacity:0.85;">${sp.superpoder}</div>
+                </div>
+
+                <div class="panel-section">
+                    <div class="panel-label">⚙️ Mecanismo Biológico</div>
+                    <div style="font-size:0.85em; line-height:1.7; opacity:0.75;">${sp.mecanismo}</div>
+                </div>
+
+                <div class="panel-section">
+                    <div class="panel-label">🧬 Genes Envolvidos</div>
+                    <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                        ${sp.genes.map(g => `<span style="font-size:0.7em; padding:4px 12px; border-radius:50px; border:1px solid ${sp.color}; color:${sp.color};">${g}</span>`).join('')}
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <div class="panel-label">🌱 Lição para a Humanidade</div>
+                    <div class="human-box" style="border-color:${sp.color}30; background:${sp.color}08;">
+                        ${sp.licao}
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <div class="panel-label">📋 Protocolo de Ativação</div>
+                    ${sp.protocolo.map((p, i) => `
+                        <div class="protocol-step">
+                            <div class="protocol-num" style="background:${sp.color};">${i + 1}</div>
+                            <div>${p}</div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div style="font-size:0.7em; opacity:0.3; margin-top:10px;">
+                    🔬 Fontes: ${sp.fonte}<br>⏱ Tempo: ${sp.tempo}
+                </div>
+            `;
+
+            document.getElementById('detail-panel').classList.add('open');
+        }
+
+        function closePanel() {
+            document.getElementById('detail-panel').classList.remove('open');
+        }
+
+        buildCards();
+    </script>
+</body>
+
+</html>

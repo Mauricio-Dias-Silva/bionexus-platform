@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura: Transcendence Frontier</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&family=Roboto+Mono&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --aura-zpe: #e0b0ff;
+            /* Light purple for ZPE */
+            --aura-hive: #00ffcc;
+            /* Bright teal for Hive Mind */
+            --aura-ouroboros: #ffaa00;
+            /* Gold for Immortality */
+            --aura-bg: #000000;
+            --text-main: #ffffff;
+        }
+
+        body {
+            background-color: var(--aura-bg);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at center, rgba(224, 176, 255, 0.05) 0%, transparent 80%);
+        }
+
+        /* The cosmic background effect */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -3;
+            background: #000;
+        }
+
+        .stars::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0, 0, 0, 0)),
+                radial-gradient(1px 1px at 40px 70px, #ffffff, rgba(0, 0, 0, 0)),
+                radial-gradient(1.5px 1.5px at 90px 40px, #ffffff, rgba(0, 0, 0, 0)),
+                radial-gradient(2px 2px at 150px 150px, #ffffff, rgba(0, 0, 0, 0));
+            background-size: 200px 200px;
+            animation: drift 100s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes drift {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-200px);
+            }
+        }
+
+        header {
+            margin-top: 60px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 4em;
+            letter-spacing: 12px;
+            color: #fff;
+            text-transform: uppercase;
+            margin-bottom: 0px;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--aura-hive), var(--aura-zpe), var(--aura-ouroboros));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(224, 176, 255, 0.2);
+        }
+
+        .subtitle {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1em;
+            color: #888;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        .nav-back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9em;
+            letter-spacing: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .nav-back:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        .frontier-grid {
+            width: 90%;
+            max-width: 1300px;
+            margin: 60px auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            z-index: 10;
+        }
+
+        .frontier-card {
+            background: rgba(10, 10, 10, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .frontier-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, var(--glow-color) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: -1;
+        }
+
+        .frontier-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--glow-color);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+        }
+
+        .frontier-card:hover::before {
+            opacity: 0.15;
+        }
+
+        .icon-container {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: var(--glow-color);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .card-desc {
+            font-size: 0.95em;
+            color: #ccc;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .hologram-button {
+            background: transparent;
+            border: 1px solid var(--glow-color);
+            color: var(--glow-color);
+            padding: 12px 25px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .hologram-button:hover {
+            background: var(--glow-color);
+            color: #000;
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        /* Specific Colors */
+        #card-hive {
+            --glow-color: var(--aura-hive);
+        }
+
+        #card-ouroboros {
+            --glow-color: var(--aura-ouroboros);
+        }
+
+        #card-zpe {
+            --glow-color: var(--aura-zpe);
+        }
+
+        /* Output Console */
+        .terminal-container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto 50px auto;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Roboto Mono', monospace;
+            color: #0f0;
+            height: 200px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .terminal-output {
+            font-size: 0.9em;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2em;
+            background: #0f0;
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stars"></div>
+    <a href="{% url 'index' %}" class="nav-back">← BIONEXUS HUB</a>
+
+    <header>
+        <h1>TRANSCENDENCE</h1>
+        <div class="subtitle">The Absolute Limits of Biological Engineering</div>
+    </header>
+
+    <div class="frontier-grid">
+        <!-- Hive Mind -->
+        <div class="frontier-card" id="card-hive">
+            <div class="icon-container">🌐</div>
+            <div class="card-title">Planetary Hive-Mind</div>
+            <div class="card-desc">Conexão BCI P2P (Peer-to-Peer). Soma as ondas cerebrais Gamma de indivíduos
+                saudáveis/meditadores e injeta o gradiente bioelétrico unificado direto na lesão neural de um paciente.
+                A cura pela telepatia de hardware.</div>
+            <button class="hologram-button"
+                onclick="simulate('hive', 'Iniciando sincronização neural de 12 monges Tibetanos via NeuroAcesso. Alvo: Transecção de Medula C4 (Paciente 0). Injetando +9.7 mV de coerência Gamma no tecido cicatricial... Morfologia nervosa revertida para estado embrionário.')">Sincronizar
+                Rede</button>
+        </div>
+
+        <!-- Immortality -->
+        <div class="frontier-card" id="card-ouroboros">
+            <div class="icon-container">🧬</div>
+            <div class="card-title">Ouroboros Reset</div>
+            <div class="card-desc">Imortalidade Epigenética. Reversão do relógio biológico acionando Fatores de Yamanaka
+                (OCT4, SOX2, KLF4) via campos eletromagnéticos ressonantes, sem uso de vírus. Envelhecimento não é mais
+                uma regra.</div>
+            <button class="hologram-button"
+                onclick="simulate('ouroboros', 'Varredura THz celular iniciada. Estimulando reprogramação do relógio de metilação do DNA. Idade física inicial: 65. Idade alvo: 25. Alongando telômeros em +2100 pb... Degradação somática permanentemente interrompida.')">Reverter
+                Idade</button>
+        </div>
+
+        <!-- Biological ZPE -->
+        <div class="frontier-card" id="card-zpe">
+            <div class="icon-container">🌌</div>
+            <div class="card-title">Biological ZPE</div>
+            <div class="card-desc">Zero-Point Energy mitocondrial. Ensina as mitocôndrias a usarem a água estruturada
+                (EZ) como uma cavidade de efeito Casimir, extraindo energia térmica e elétrons direto do vácuo quântico
+                e do campo da Terra. Transição para corpo de luz.</div>
+            <button class="hologram-button"
+                onclick="simulate('zpe', 'Reconfigurando membrana mitocondrial para ressonância com flutuações do vácuo quântico. Extração de fótons do campo magnético terrestre aprovada. Síntese de ATP convertida para 99% de eficiência de luz. O Avatar físico tornou-se autossuficiente.')">Extrair
+                Vácuo</button>
+        </div>
+    </div>
+
+    <!-- Console -->
+    <div class="terminal-container">
+        <div class="terminal-output" id="console-output">> Aura Transcendence Engine Online.<br>> Aguardando comando
+            para superação do limite biológico...<br></div>
+        <div class="cursor"></div>
+    </div>
+
+    <script>
+        const consoleDiv = document.getElementById('console-output');
+
+        function simulate(type, message) {
+            let color = '#0f0';
+            if (type === 'hive') color = 'var(--aura-hive)';
+            if (type === 'ouroboros') color = 'var(--aura-ouroboros)';
+            if (type === 'zpe') color = 'var(--aura-zpe)';
+
+            const newLine = document.createElement('div');
+            newLine.style.color = color;
+            newLine.style.marginTop = "10px";
+            newLine.innerText = `[${type.toUpperCase()}] EXECUTION: ` + message;
+
+            consoleDiv.appendChild(newLine);
+            consoleDiv.parentElement.scrollTop = consoleDiv.parentElement.scrollHeight;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Bio-Nexus | The Future of Medicine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&family=Roboto+Mono&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --aura-electric: #00d2ff;
+            --aura-hive: #00ffcc;
+            --aura-ouroboros: #ffaa00;
+            --aura-zpe: #e0b0ff;
+            --aura-touchless: #ff7675;
+            --aura-bg: #050508;
+            --text-main: #ffffff;
+            --card-bg: rgba(20, 20, 25, 0.7);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--aura-bg);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(0, 210, 255, 0.05), transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(224, 176, 255, 0.05), transparent 50%);
+        }
+
+        header {
+            width: 100%;
+            padding: 40px 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #fff, var(--aura-electric));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1rem;
+            color: #aaa;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .hero {
+            max-width: 900px;
+            text-align: center;
+            margin: 80px 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .hero-highlight {
+            color: var(--aura-electric);
+            font-weight: 600;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            width: 90%;
+            max-width: 1400px;
+            margin-bottom: 100px;
+        }
+
+        .module-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--glow-color);
+            opacity: 0.5;
+            transition: opacity 0.4s ease;
+        }
+
+        .module-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--glow-color);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .module-card:hover::before {
+            opacity: 1;
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--glow-color);
+        }
+
+        .card-desc {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #bbb;
+            margin-bottom: 30px;
+        }
+
+        .card-action {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #fff;
+            align-self: flex-start;
+            border-bottom: 1px solid var(--glow-color);
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .module-card:hover .card-action {
+            color: var(--glow-color);
+        }
+
+        /* Specific Modifiers */
+        #card-transcendence {
+            --glow-color: var(--aura-zpe);
+        }
+
+        #card-bioelectric {
+            --glow-color: var(--aura-electric);
+        }
+
+        #card-touchless {
+            --glow-color: var(--aura-touchless);
+        }
+
+        #card-biomimicry {
+            --glow-color: var(--aura-hive);
+        }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>AURA BIO-NEXUS</h1>
+        <div class="subtitle">Sovereign Medical Platform</div>
+    </header>
+
+    <div class="hero">
+        <p>A era das intervenções mecânicas e bloqueadores químicos acabou. O <span class="hero-highlight">Aura
+                Bio-Nexus</span> é o ecossistema de Medicina de Sistemas e Biologia Quântica desenhado para tratar o
+            corpo humano pelo que ele realmente é: um campo coerente de energia e informação.</p>
+        <p>Acesse os módulos abaixo para interagir com os simuladores de reprogramação estrutural, regeneração
+            biomimética e longevidade.</p>
+    </div>
+
+    <div class="modules-grid">
+
+        <!-- TRANSCENDENCE -->
+        <a href="{% url 'transcendence' %}" class="module-card" id="card-transcendence">
+            <div>
+                <div class="card-icon">🌌</div>
+                <div class="card-title">Transcendence</div>
+                <div class="card-desc">As fronteiras da superação biológica. Simuladores de Imortalidade Epigenética
+                    (Ouroboros Reset), Hive-Mind Healing e ZPE Biológioco.</div>
+            </div>
+            <div class="card-action">Acessar Fronteira →</div>
+        </a>
+
+        <!-- BIOELECTRIC MORPHOLOGY -->
+        <a href="{% url 'bioelectric' %}" class="module-card" id="card-bioelectric">
+            <div>
+                <div class="card-icon">⚡</div>
+                <div class="card-title">Morfologia Bioelétrica</div>
+                <div class="card-desc">Simulador interativo de controle da Voltagem de Membrana (Vmem). Aprenda como
+                    reescrever o "software anatômico" forçando a regressão celular de tecido cicatricial adulto para os
+                    estados embrionários regenerativos (-15mV) inspirados nos protocolos de Michael Levin.</div>
+            </div>
+            <div class="card-action">Acessar Painel Vmem →</div>
+        </a>
+
+        <!-- TOUCHLESS HEALING -->
+        <a href="{% url 'touchless' %}" class="module-card" id="card-touchless">
+            <div>
+                <div class="card-icon">⚕️</div>
+                <div class="card-title">Cura sem Toque</div>
+                <div class="card-desc">O paradigma pós-cirúrgico. Conheça as rotas não invasivas que utilizam
+                    ressonância epimórfica e fagocitose celular para substituir cirurgias mecânicas de Fusão Espinhal,
+                    Regeneração Articular e Excisão Tumoral.</div>
+            </div>
+            <div class="card-action">Acessar Protocolos →</div>
+        </a>
+
+        <!-- BIOMIMICRY -->
+        <a href="{% url 'biomimicry' %}" class="module-card" id="card-biomimicry">
+            <div>
+                <div class="card-icon">🦎</div>
+                <div class="card-title">Regeneração Biomimética</div>
+                <div class="card-desc">Tradução dos milagres de renegeração da natureza (como a recriação do sistema
+                    nervoso e membros do Axolote) em vias sintéticas para ativação do genoma humano oculto.</div>
+            </div>
+            <div class="card-action">Acessar Genética →</div>
+        </a>
+
+    </div>
+
+    <footer>
+        <p>AURA SOVERANA CLOUD | CODEX-IA PROJECT INITIATIVE</p>
+    </footer>
+
+</body>
+
+</html>

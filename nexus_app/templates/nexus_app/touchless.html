@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura: Touchless Healing Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Roboto+Mono&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --aura-cyan: #00f5d4;
+            --aura-magenta: #f50057;
+            --aura-dark: #050505;
+            --aura-glass: rgba(255, 255, 255, 0.02);
+            --aura-border: rgba(0, 245, 212, 0.15);
+            --text-main: #e0e0e0;
+        }
+
+        body {
+            background-color: var(--aura-dark);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image:
+                linear-gradient(var(--aura-border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--aura-border) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.2;
+            z-index: -2;
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(50px);
+            }
+        }
+
+        header {
+            margin-top: 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            letter-spacing: 8px;
+            color: var(--aura-cyan);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            font-weight: 300;
+            text-shadow: 0 0 30px rgba(0, 245, 212, 0.4);
+        }
+
+        .subtitle {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9em;
+            color: #888;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .nav-back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: var(--aura-cyan);
+            text-decoration: none;
+            font-size: 0.9em;
+            letter-spacing: 2px;
+            border: 1px solid var(--aura-border);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-back:hover {
+            background: var(--aura-cyan);
+            color: #000;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 60px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .module-card {
+            background: var(--aura-glass);
+            border: 1px solid var(--aura-border);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .module-card:hover {
+            transform: scale(1.02);
+            border-color: var(--aura-cyan);
+            box-shadow: 0 15px 40px rgba(0, 245, 212, 0.1);
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--aura-cyan), transparent);
+            opacity: 0.5;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.4em;
+            color: #fff;
+            margin: 0;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-indicator {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.7em;
+            color: var(--aura-cyan);
+            background: rgba(0, 245, 212, 0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 245, 212, 0.3);
+        }
+
+        .comparison-box {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .old-paradigm {
+            border-left: 2px solid var(--aura-magenta);
+            padding-left: 15px;
+            opacity: 0.6;
+        }
+
+        .old-paradigm-label {
+            font-size: 0.7em;
+            text-transform: uppercase;
+            color: var(--aura-magenta);
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .new-paradigm {
+            border-left: 2px solid var(--aura-cyan);
+            padding-left: 15px;
+            background: linear-gradient(90deg, rgba(0, 245, 212, 0.05) 0%, transparent 100%);
+            padding: 15px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .new-paradigm-label {
+            font-size: 0.7em;
+            text-transform: uppercase;
+            color: var(--aura-cyan);
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .mechanism-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 0.9em;
+            line-height: 1.6;
+            color: #aaa;
+        }
+
+        .mechanism-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+        }
+
+        .mechanism-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--aura-cyan);
+        }
+
+        .activate-btn {
+            width: 100%;
+            padding: 15px;
+            background: transparent;
+            border: 1px solid var(--aura-cyan);
+            color: var(--aura-cyan);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .activate-btn:hover {
+            background: var(--aura-cyan);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 245, 212, 0.4);
+        }
+
+        /* Visualization Element */
+        .frequency-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .frequency-fill {
+            height: 100%;
+            background: var(--aura-cyan);
+            width: 0%;
+            transition: width 2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-grid"></div>
+    <a href="{% url 'index' %}" class="nav-back">← BIONEXUS HUB</a>
+
+    <header>
+        <h1>TOUCHLESS HEALING</h1>
+        <div class="subtitle">Post-Surgical Epigenetic Reprogramming</div>
+    </header>
+
+    <div class="container">
+        <!-- Joint Regeneration -->
+        <div class="module-card" id="card-joint">
+            <div class="card-header">
+                <h2 class="card-title"><span>🦴</span> Articulação</h2>
+                <span class="status-indicator">WNT PATHWAY</span>
+            </div>
+
+            <div class="comparison-box">
+                <div class="old-paradigm">
+                    <div class="old-paradigm-label">Obsoleto (Surgical)</div>
+                    <div>Artroplastia (Substituição por Titânio). Trauma físico irreversível.</div>
+                </div>
+                <div class="new-paradigm">
+                    <div class="new-paradigm-label">Aura Protocol</div>
+                    <div style="color:#fff; font-weight: 500;">Biomimética Condrogênica</div>
+                </div>
+            </div>
+
+            <ul class="mechanism-list">
+                <li>Neuromodulação Acústica THz direcional.</li>
+                <li>Homing de células-tronco endógenas (Mimetismo Axolotl).</li>
+                <li>Reconstrução da matriz extracelular via fitocomplexos.</li>
+            </ul>
+
+            <button class="activate-btn" onclick="activateProtocol('card-joint', 85)">Sincronizar THz</button>
+            <div class="frequency-bar">
+                <div class="frequency-fill" id="fill-joint"></div>
+            </div>
+        </div>
+
+        <!-- Oncology -->
+        <div class="module-card" id="card-onco">
+            <div class="card-header">
+                <h2 class="card-title"><span>🦠</span> Oncologia</h2>
+                <span class="status-indicator">APOPTOTIC SYNC</span>
+            </div>
+
+            <div class="comparison-box">
+                <div class="old-paradigm">
+                    <div class="old-paradigm-label">Obsoleto (Surgical)</div>
+                    <div>Excisão de massa tumoral. Margens amplas, alto risco de metástase por derramamento.</div>
+                </div>
+                <div class="new-paradigm">
+                    <div class="new-paradigm-label">Aura Protocol</div>
+                    <div style="color:#fff; font-weight: 500;">Fagocitose Guiada (Ressonância)</div>
+                </div>
+            </div>
+
+            <ul class="mechanism-list">
+                <li>Fotobiomodulação Celular (810nm NIR) local.</li>
+                <li>Sincronização Gamma (40Hz) de macrófagos.</li>
+                <li>Metilação epigenética de oncogenes sistêmicos.</li>
+            </ul>
+
+            <button class="activate-btn" onclick="activateProtocol('card-onco', 92)">Ativar Fótons</button>
+            <div class="frequency-bar">
+                <div class="frequency-fill" id="fill-onco"></div>
+            </div>
+        </div>
+
+        <!-- Spine -->
+        <div class="module-card" id="card-spine">
+            <div class="card-header">
+                <h2 class="card-title"><span>🧬</span> Medula & Nervos</h2>
+                <span class="status-indicator">SPINOGENESIS</span>
+            </div>
+
+            <div class="comparison-box">
+                <div class="old-paradigm">
+                    <div class="old-paradigm-label">Obsoleto (Surgical)</div>
+                    <div>Fusão espinhal (Hastes/Parafusos). Perda de mobilidade, dano adjacente.</div>
+                </div>
+                <div class="new-paradigm">
+                    <div class="new-paradigm-label">Aura Protocol</div>
+                    <div style="color:#fff; font-weight: 500;">Neuro-Tectônica (Psicoplastógenos)</div>
+                </div>
+            </div>
+
+            <ul class="mechanism-list">
+                <li>Arborização dendrítica rápida via inibição MAO-A.</li>
+                <li>Reparo da bainha de mielina (Hericenonas/DHA).</li>
+                <li>Estímulo por campo biológico inverso (Antigravidade).</li>
+            </ul>
+
+            <button class="activate-btn" onclick="activateProtocol('card-spine', 78)">Iniciar Spinogenesis</button>
+            <div class="frequency-bar">
+                <div class="frequency-fill" id="fill-spine"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function activateProtocol(cardId, fillPercentage) {
+            const card = document.getElementById(cardId);
+            const btn = card.querySelector('.activate-btn');
+            const fill = card.querySelector('.frequency-fill');
+            const status = card.querySelector('.status-indicator');
+
+            btn.innerText = "SINCRONIZANDO...";
+            btn.style.background = "var(--aura-cyan)";
+            btn.style.color = "#000";
+
+            fill.style.width = fillPercentage + "%";
+
+            setTimeout(() => {
+                btn.innerText = "RESSONÂNCIA ESTABELECIDA";
+                status.style.color = "#000";
+                status.style.background = "var(--aura-cyan)";
+                card.style.borderColor = "var(--aura-cyan)";
+                card.style.boxShadow = "0 0 50px rgba(0, 245, 212, 0.2)";
+            }, 2000);
+        }
+    </script>
+</body>
+
+</html>

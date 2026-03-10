@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura: Morphogenetic Bioelectricity</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Roboto+Mono&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --aura-electric: #00d2ff;
+            --aura-hyperpolar: #3a0088;
+            --aura-depolar: #ff0055;
+            --aura-dark: #020205;
+            --aura-glass: rgba(0, 210, 255, 0.03);
+            --aura-border: rgba(0, 210, 255, 0.2);
+            --text-main: #e0e0e0;
+        }
+
+        body {
+            background-color: var(--aura-dark);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-field {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, rgba(0, 210, 255, 0.05) 0%, transparent 70%);
+            z-index: -2;
+        }
+
+        .electric-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image:
+                linear-gradient(var(--aura-border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--aura-border) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.1;
+            z-index: -2;
+            transform: perspective(500px) rotateX(60deg);
+            transform-origin: top;
+            animation: pulseGrid 4s infinite alternate;
+        }
+
+        @keyframes pulseGrid {
+            0% {
+                opacity: 0.05;
+            }
+
+            100% {
+                opacity: 0.15;
+            }
+        }
+
+        header {
+            margin-top: 50px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 3em;
+            letter-spacing: 6px;
+            color: var(--aura-electric);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            font-weight: 300;
+            text-shadow: 0 0 20px rgba(0, 210, 255, 0.5);
+        }
+
+        .subtitle {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9em;
+            color: #888;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-back {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: var(--aura-electric);
+            text-decoration: none;
+            font-size: 0.9em;
+            letter-spacing: 2px;
+            border: 1px solid var(--aura-border);
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .nav-back:hover {
+            background: var(--aura-electric);
+            color: #000;
+        }
+
+        .dashboard-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            z-index: 10;
+        }
+
+        .control-panel {
+            background: var(--aura-glass);
+            border: 1px solid var(--aura-border);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .visualization-panel {
+            background: var(--aura-glass);
+            border: 1px solid var(--aura-border);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h3 {
+            color: #fff;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            letter-spacing: 1px;
+            font-weight: 400;
+        }
+
+        .vmem-slider-container {
+            margin-bottom: 30px;
+        }
+
+        .vmem-label {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.8em;
+            color: var(--aura-electric);
+            margin-bottom: 10px;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: var(--aura-electric);
+            cursor: pointer;
+            margin-top: -8px;
+            box-shadow: 0 0 10px var(--aura-electric);
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: linear-gradient(90deg, var(--aura-hyperpolar) 0%, #a29bfe 50%, var(--aura-depolar) 100%);
+            border-radius: 2px;
+        }
+
+        .state-info {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .state-title {
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .state-desc {
+            font-size: 0.85em;
+            color: #aaa;
+            line-height: 1.5;
+        }
+
+        /* The Cell Network Visualization */
+        .cell-network {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            width: 80%;
+            max-width: 400px;
+            aspect-ratio: 1;
+        }
+
+        .cell {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            border: 2px solid var(--aura-hyperpolar);
+            transition: all 0.5s ease;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .cell::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30%;
+            height: 30%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: all 0.5s ease;
+        }
+
+        /* States */
+        .adult-state .cell {
+            border-color: var(--aura-hyperpolar);
+            box-shadow: 0 0 5px var(--aura-hyperpolar);
+        }
+
+        .embryonic-state .cell {
+            border-color: var(--aura-electric);
+            box-shadow: 0 0 15px var(--aura-electric), inset 0 0 20px var(--aura-electric);
+            transform: scale(1.1);
+            animation: palpitate 1.5s infinite alternate;
+        }
+
+        .cancer-state .cell {
+            border-color: var(--aura-depolar);
+            box-shadow: 0 0 20px rgba(255, 0, 85, 0.4);
+            border-radius: 30%;
+            /* Break perfect circle morphology */
+            transform: scale(1.05);
+        }
+
+        @keyframes palpitate {
+            0% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1.15);
+                box-shadow: 0 0 25px var(--aura-electric), inset 0 0 25px var(--aura-electric);
+            }
+        }
+
+        .data-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.75em;
+            color: rgba(0, 210, 255, 0.7);
+        }
+
+        .morpho-text {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9em;
+            color: #fff;
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-field"></div>
+    <div class="electric-grid"></div>
+    <a href="{% url 'index' %}" class="nav-back">← BIONEXUS HUB</a>
+
+    <header>
+        <h1>MORPHOGENETIC CODE</h1>
+        <div class="subtitle">Bioelectric Anatomy Reprogramming (Vmem)</div>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <h3>Modulação de Gradiente Ionico</h3>
+
+            <div class="vmem-slider-container">
+                <div class="vmem-label">
+                    <span>Forte Hiperpolarização</span>
+                    <span id="vmem-value">-70 mV</span>
+                    <span>Despolarização Severa</span>
+                </div>
+                <!-- -90mV to 0mV range -->
+                <input type="range" id="vmem-slider" min="-90" max="0" value="-70" oninput="updateBioState(this.value)">
+            </div>
+
+            <div class="state-info" id="state-info-box">
+                <div class="state-title" id="state-title">Estado Adulto (Differentiated)</div>
+                <div class="state-desc" id="state-desc">
+                    Células travadas em sua morfologia atual. Canais iônicos estabilizados. Baixa plasticidade,
+                    manutenção somática ativa. Nenhuma capacidade de regeneração complexa de tecidos.
+                </div>
+            </div>
+
+            <div style="font-size: 0.8em; color: rgba(255,255,255,0.5); line-height: 1.5;">
+                <p><strong>Aura Bio-Nexus Thesis:</strong> O código da anatomia não está no genoma, mas nas memórias de
+                    padrão bioelétrico (Pattern Memory) das redes de células.</p>
+                <p>Ao forçar a alteração de voltagem através de fitocomplexos e frequências acústicas/luminosas,
+                    ordenamos o tecido a "esquecer" sua forma adulta danificada e regredir ao estado construtor
+                    embrionário.</p>
+            </div>
+        </div>
+
+        <!-- Visualization Panel -->
+        <div class="visualization-panel">
+            <div class="morpho-text" id="morpho-objective">Morfologia Travada:<br><span
+                    style="color:var(--aura-hyperpolar)">MANUTENÇÃO</span></div>
+
+            <div class="cell-network adult-state" id="cell-grid">
+                <!-- Generating 25 cells -->
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div>
+
+            <div class="data-overlay">
+                GAP JUNCTIONS: <span id="gap-j">CLOSED</span><br>
+                PLASTICITY: <span id="plasticity">LOW</span><br>
+                PATTERN MEMORY: <span id="memory">READ-ONLY</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateBioState(vmem) {
+            document.getElementById('vmem-value').innerText = vmem + " mV";
+
+            const grid = document.getElementById('cell-grid');
+            const title = document.getElementById('state-title');
+            const desc = document.getElementById('state-desc');
+            const objective = document.getElementById('morpho-objective');
+
+            const gapJ = document.getElementById('gap-j');
+            const plast = document.getElementById('plasticity');
+            const mem = document.getElementById('memory');
+
+            // Categorize by voltage (Based on Levin's generalized models)
+            if (vmem <= -50) {
+                // Adult State (-50 to -90)
+                grid.className = "cell-network adult-state";
+                title.innerText = "Estado Adulto (Differentiated)";
+                desc.innerText = "Células travadas em sua morfologia atual. Canais iônicos estabilizados. Baixa plasticidade, manutenção somática ativa. Nenhuma capacidade de regeneração complexa de tecidos.";
+                objective.innerHTML = "Morfologia Travada:<br><span style='color:var(--aura-hyperpolar)'>MANUTENÇÃO (Hardware Estável)</span>";
+
+                gapJ.innerText = "CLOSED";
+                plast.innerText = "LOW";
+                mem.innerText = "READ-ONLY";
+            }
+            else if (vmem > -50 && vmem <= -15) {
+                // Regenerative Embryonic State (-15 to -30 region)
+                grid.className = "cell-network embryonic-state";
+                title.innerText = "Estado Regenerativo (Epimórfico)";
+                title.style.color = "var(--aura-electric)";
+                desc.innerText = "Regressão ao estado construtor (Embrionário). Junções comunicantes abertas compartilhando instruções de morfologia. Alta plasticidade. Células prontas para reconstruir membros ou nervos ópticos cortados.";
+                objective.innerHTML = "Padrão de Construção Ativo:<br><span style='color:var(--aura-electric)'>REGENERAÇÃO (Reescrevendo Software)</span>";
+
+                gapJ.innerText = "OPEN (NETWORK SYNC)";
+                plast.innerText = "MAXIMUM";
+                mem.innerText = "READ-WRITE (EDITABLE)";
+            }
+            else {
+                // Oncogenic / Disconnected State (0 to -15)
+                grid.className = "cell-network cancer-state";
+                title.innerText = "Estado Desconectado (Oncogênico)";
+                title.style.color = "var(--aura-depolar)";
+                desc.innerText = "Despolarização severa. A célula se desconecta eletricamente da rede somática (perde a memória de quem ela é no corpo). Ela reverte ao modo de ameba egoísta: proliferação descontrolada (Câncer).";
+                objective.innerHTML = "Falha no Algoritmo de Forma:<br><span style='color:var(--aura-depolar)'>METÁSTASE (Desconexão da Rede)</span>";
+
+                gapJ.innerText = "ISOLATED";
+                plast.innerText = "CHAOTIC";
+                mem.innerText = "CORRUPTED (SELFISH)";
+            }
+        }
+    </script>
+</body>
+
+</html>
