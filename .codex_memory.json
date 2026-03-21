@@ -1,0 +1,53 @@
+{
+  "project_summary": "",
+  "file_index": {
+    "bionexus_core/__init__.py": {
+      "summary": "Module bionexus_core/__init__.py defines classes [] and functions []",
+      "hash": "HASH_TODO",
+      "last_updated": "2026-03-14T15:39:26.522150"
+    },
+    "bionexus_core/asgi.py": {
+      "summary": "Module bionexus_core/asgi.py defines classes [] and functions []",
+      "hash": "HASH_TODO",
+      "last_updated": "2026-03-14T15:39:26.522150"
+    },
+    "bionexus_core/settings.py": {
+      "summary": "Module bionexus_core/settings.py defines classes [] and functions []",
+      "hash": "HASH_TODO",
+      "last_updated": "2026-03-14T15:39:26.527386"
+    },
+    "bionexus_core/urls.py": {
+      "summary": "Module bionexus_core/urls.py defines classes [] and functions []",
+      "hash": "HASH_TODO",
+      "last_updated": "2026-03-14T15:39:26.528397"
+    },
+    "bionexus_core/wsgi.py": {
+      "summary": "Module bionexus_core/wsgi.py defines classes [] and functions []",
+      "hash": "HASH_TODO",
+      "last_updated": "2026-03-14T15:39:26.528397"
+    },
+    "manage.py": {
+      "summary": "Module manage.py defines classes [] and functions ['main']",
+      "hash": "HASH_TODO",
+      "last_updated": "2026-03-14T15:39:26.530511"
+    },
+    "nexus_app/engines/phytotherapy.py": {
+      "summary": "Module nexus_app/engines/phytotherapy.py defines classes ['PhytoResonanceEngine', 'MedicineEquivalenceEngine', 'NeuroRegenerationEngine', 'EpigeneticModulator', 'CerebralPalsyShield', 'EpigeneticDarkGenomeSync', 'BiosignatureDiscoveryModule', 'PsychoplastogenEngine', 'IncurableCuresEngine', 'BiomimeticRegenerationEngine', 'QuantumResonanceScanner', 'TouchlessSurgeryEngine', 'MitochondrialPhotobiomodulationEngine', 'MorphogeneticBioelectricEngine'] and functions ['get_protocol', 'calculate_dosage', 'simulate_molecular_docking', 'find_equivalence', 'get_regeneration_protocol', 'get_gene_protocol', 'get_child_protocol', 'simulate_activation', 'scan_environment', 'get_expansion_protocol', 'verify_safety_profile', 'get_protocol', 'get_biomimetic_protocol', 'scan_compound_resonance', 'simulate_touchless_procedure', 'calculate_metabolic_efficiency', 'reprogram_anatomical_software']",
+      "hash": "HASH_TODO",
+      "last_updated": "2026-03-14T15:39:26.548306"
+    },
+    "nexus_app/engines/transcendence_engine.py": {
+      "summary": "Module nexus_app/engines/transcendence_engine.py defines classes ['TranscendenceEngine'] and functions ['hive_mind_healing_sync', 'ouroboros_epigenetic_reset', 'biological_zpe_resonance']",
+      "hash": "HASH_TODO",
+      "last_updated": "2026-03-14T15:39:26.552354"
+    },
+    "novo_arquivo.py": {
+      "summary": "Module novo_arquivo.py defines classes [] and functions []",
+      "hash": "HASH_TODO",
+      "last_updated": "2026-03-14T15:39:26.554134"
+    }
+  },
+  "dependencies": {},
+  "tech_stack": [],
+  "last_scan": null
+}
