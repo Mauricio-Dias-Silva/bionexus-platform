@@ -1,4 +1,4 @@
-﻿from django.shortcuts import render
+from django.shortcuts import render
 
 def nexus_index(request):
     return render(request, 'nexus_app/index.html')
