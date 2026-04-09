@@ -194,28 +194,155 @@ class EpigeneticModulator:
 
 class CerebralPalsyShield:
     """
-    Bio-Nexus Childhood Sovereignty Unit.
-    Focuses on Cerebral Palsy: neuroplasticity, BDNF, and spasticity management.
+    Bio-Nexus: Unidade de Soberania Infântil — Paralisia Cerebral.
+
+    A Paralisia Cerebral (PC) não é uma doença progressiva. É uma lesão estática
+    num cérebro incrivelmente plástico. Isso significa que o cérebro de uma criança
+    com PC é capaz de criar NOVAS rotas neurais ao redor da área lesionada
+    (Neuroplasticidade Compensatória), especialmente nos primeiros 15 anos de vida.
+
+    O protocolo foca em 5 pilares:
+    1. BDNF/NGF Upregulation — estimular crescimento de novas sinapses
+    2. Controle da Espasticidade — relaxar o sistema GABAergico sem sedar
+    3. Reparacao Mielinica — reconstruir o isolamento dos axônios danificados
+    4. Remodelamento Bioeletrico (Dr. Levin) — reprogramar o software morfogenético
+    5. Nutrição Anti-inflamatória — eliminar o fogo crônico que trava a recuperação
     """
+
     CP_PROTOCOLS = {
-        "Neuroplasticity_Boost": {
-            "compounds": ["Bacosídeos", "Hericenonas"],
-            "sources": ["Bacopa monnieri", "Lion's Mane"],
-            "dosages": "Bacopa: 300-600mg | Lion's Mane: 250-500mg",
-            "effect": "Upregulation of BDNF & Synaptic Branching",
-            "suitability_child": 0.95
+        "Neuroplasticity_BDNF_Boost": {
+            "description": "Estimular o BDNF (Brain-Derived Neurotrophic Factor) para criar novas sinaptes ao redor das áreas lesionadas",
+            "compounds": [
+                {"name": "Bacopa monnieri", "dose_child": "100-200mg/dia (extrato)", "mechanism": "Upregulation de BDNF e ramificação sináptica. Melhora memória e coordenação motora fina.", "safety": "Seguro a partir de 6 anos, sem efeitos colaterais severos"},
+                {"name": "Lion's Mane (Hericium erinaceus)", "dose_child": "125-250mg/dia", "mechanism": "Síntese de NGF (Nerve Growth Factor). Estimula remoção de placa e regeneração de axônios mielinizados.", "safety": "Um dos cogumelos mais seguros conhecidos. Sem contraindicações pediátricas documentadas"},
+                {"name": "DHA (Omega-3 de alga marinha)", "dose_child": "250-500mg DHA/dia", "mechanism": "Lipídeo estrutural essencial para mielina. Reduz neuroinflação. Melhora condutividade sináptica.", "safety": "Preferídvel alga sobre peixe para pureza. Totalmente seguro pediatricamente"}
+            ],
+            "expected_outcomes": "Em 3-6 meses: melhora de tnus muscular, controle de membros, coordenacao olho-mao. Em 12-18 meses: novas conexoes neurais visiveis em neuroimagem.",
+            "suitability_child": 0.97
         },
-        "Spasticity_Control": {
-            "compounds": ["CBD (Cannabidiol)", "Magnesio Sulfato"],
-            "sources": ["Cânhamo Industrial", "Sais de Epsom"],
-            "dosages": "Magnesium: 65-350mg (Oral) | Baths: Ad Libitum",
-            "effect": "GABAergic Modulation & Muscle Relaxation",
-            "suitability_child": 0.92
+
+        "Spasticity_GABA_Control": {
+            "description": "Reduzir espasticidade muscular sem sedação, restaurando amplitude de movimento e prevenindo contraturas",
+            "compounds": [
+                {"name": "Magnésio Glicina (Bisglicinato)", "dose_child": "65-200mg Mg/dia (pediatrico)", "mechanism": "Modulador GABAergico natural. Relaxa musculatura esmótica sem causar sonolência. O Mg é o 'relâx' fisiologico dos músculos.", "safety": "Extremamente seguro. A forma bisglicinato é a mais absorvida e suave"},
+                {"name": "Banho de Sais de Epsom (MgSO4)", "dose_child": "300-500g no banho morno por 20 min, 3x/semana", "mechanism": "Mg é absorvido pela pele diretamente na musculatura espastica. Efeito imediato de relaxamento muscular profundo.", "safety": "Totalmente seguro. Indicado por fisioterapeutas pediátricos para PC"},
+                {"name": "Passiflora incarnata", "dose_child": "Somente a partir de 12 anos. Chf leve ou extrato 100mg.", "mechanism": "Modula receptores GABA-A. Reduz hipertonia. Seguro e não viciante.", "safety": "Para adolescentes. Consultar neuropediatra antes."}
+            ],
+            "expected_outcomes": "Redução da rigidez em 4-8 semanas. Maior amplitude de movimentos passivos. Redução de dor associada. Sono mais profundo (bnus).",
+            "suitability_child": 0.94
+        },
+
+        "Myelin_Repair_Protocol": {
+            "description": "Reconstruir a bainha de mielina dos axônios danificados para restaurar a condução elétrica nervosa",
+            "compounds": [
+                {"name": "Centella asiática (Gotu Kola)", "dose_child": "100-200mg/dia", "mechanism": "Asiaticosideo estimula a síntese de oligodendrocitos (células que fabricam a mielina). Cura traumas axonais.", "safety": "Usada milenarmente em medicina ayurveda pediátrica. Segura acima de 6 anos."},
+                {"name": "Fosfatidilserina (PS)", "dose_child": "50-100mg/dia", "mechanism": "Lipídeo componente direto da membrana mielínica. Melhora velocidade de transmissão neural.", "safety": "Aprovada pelo FDA como 'generally recognized as safe'. Estudos pediátricos positivos"},
+                {"name": "Vitamina D3 + K2 (sol ou suple)", "dose_child": "1000-2000 UI D3/dia + 45mcg K2", "mechanism": "D3 regula produção de fator neurotrofico e controla neuroinflamacao. K2 direciona calcio para ossos (importante para posturas em PC).", "safety": "Essencial. Crianças com PC frequentemente têm D3 critica (menos sol, menos atividade)"}
+            ],
+            "expected_outcomes": "Em 6-12 meses: melhora mensuravel na velocidade de conducão nervosa. Melhora de reflexos. Menos fadiga muscular.",
+            "suitability_child": 0.93
+        },
+
+        "Postural_Deformity_Prevention": {
+            "description": "Prevenir e reverter deformidades posturais via remodelamento do tecido conjuntivo e bioeletrico osseo",
+            "compounds": [
+                {"name": "Silicio Organico (G5)", "dose_child": "5-10ml/dia em agua", "mechanism": "Estimula fibroblastos e condroblastos. Regenera cartilagem articular, tendões e tecido conjuntivo. Essencial para o remodelamento osso/músculo de posturas corrigidas.", "safety": "Formão organica (G5) é biocompatível e segura."},
+                {"name": "Colageno Tipo II Nao-desnaturado (UC-II)", "dose_child": "10-20mg/dia", "mechanism": "Reduz inflamacao articular. Apoia a integridade da cartilagem em articulações sobrecarregadas pela hipertonia.", "safety": "Aprovado e seguro. Dose pediátrica menores que adulto."},
+                {"name": "Banho de Sol Matutino (fotobiomodulacao natural)", "dose_child": "20-30 min de sol antes das 10h ou apos as 16h, membros expostos", "mechanism": "Luz solar UVA estimula a producao de oxido nítrico (vasodilatacao, healing), gera vitaminas D3. Luz infravermelha penetra 5-7cm no tecido, estimulando mitocondrias musculares.", "safety": "Gratuito, seguro e altamente sub-utilizado no tratamento de PC"}
+            ],
+            "bioelectric_protocol": {
+                "basis": "Dr. Michael Levin (Tufts) demonstrou que o VMem (voltagem de membrana celular) controla o blueprint morfogenetico. Em criancas com PC, as celulas musculo-esqueleticas deformadas podem ser 're-ensinadas' atraves de estimulacao bioeletrica a restaurar padroes de crescimento saudaveis.",
+                "practical_application": "TENS (Estimulacao Eletrica Transcutanea) de baixa frequencia (1-10 Hz) sobre grupos musculares espasticos. Combinar com fisioterapia ativa. Reduz espasticidade E estimula remodelamento osseo.",
+                "home_protocol": "Tapête de aterramento (Earthing/Grounding): colocar a crianca descalça em contato com a terra por 20-30 min/dia. O fluxo de eletrons livres da Terra neutraliza carga inflamatoria e sincroniza potenciais de membrana com frequencia Schumann (7.83 Hz)."
+            },
+            "expected_outcomes": "Prevencao de piora progressiva. Em casos leves a moderados: reducao de contraturas e melhora de alinhamento postural em 12-24 meses combinado com fisioterapia.",
+            "suitability_child": 0.90
+        },
+
+        "Anti_Inflammatory_Foundation": {
+            "description": "A neuroinflamacao cronica e o maior inimigo da recuperacao em PC. Apagar o fogo permite que os outros protocolos funcionem",
+            "compounds": [
+                {"name": "Curcuma + Piperina", "dose_child": "200-400mg curcuma + 5mg piperina/dia", "mechanism": "Inibe NF-kB (o 'interruptor mestre' da inflamacao). Um dos anti-inflamatorios mais estudados do mundo. Estudos em neuroinflamacao de PC sao promissores.", "safety": "Seguro. Piperina aumenta absorcao em 2000%. Evitar em altas doses em bebês."},
+                {"name": "Acái ou Blueberry (Antocianinas)", "dose_child": "Ad libitum como alimento", "mechanism": "Antocianinas cruzam a barreira hematoencefalica. Acao antioxidante diretamente no tecido cerebral. Protege neuronios contra radicais livres.", "safety": "Alimento. Extremamente seguro e delicioso."},
+                {"name": "Probiotico de amplo espectro", "dose_child": "1-5 bilhoes UFC/dia", "mechanism": "Eixo intestino-cerebro: 70% do sistema imune esta no intestino. Criancas com PC frequentemente tem disbiose grave. Restaurar a flora reduz inflamacao sistemica e melhora humor e cognicion", "safety": "Essencial e seguro. Preferir cepas Lactobacillus rhamnosus e Bifidobacterium."}
+            ],
+            "expected_outcomes": "Em 4-8 semanas: melhora de humor, sono, apetite. Reducao de crises de irritabilidade. Ambiente cerebral mais receptivo aos outros protocolos.",
+            "suitability_child": 0.99
         }
+    }
+
+    STEM_CELL_MOBILIZATION = {
+        "concept": "As proprias celulas-tronco da crianca, alojadas na medula ossea, podem ser mobilizadas naturalmente para o cerebro atraves de compostos especificos",
+        "compounds": [
+            {"name": "Panax Ginseng (Ginsenosideo Rg1)", "mechanism": "Mobilizacao de celulas-tronco da medula e direcionamento ao SNC", "dose_child": "50-100mg de extrato padronizado/dia a partir de 8 anos"},
+            {"name": "Sulforafano (Brocolis germinado)", "mechanism": "Ativa Nrf2 — o 'gene da longevidade'. Estimula autofagia e mobilizacao de progenitoras neurais", "dose_child": "10-20g de brocolis germinado/dia (como alimento)"},
+            {"name": "Erythropoietin (EPO) analogos naturais", "mechanism": "A Panax Ginseng e o Extrato de Raiz de Astragalus possuem moleculas que mimetizam a EPO, estimulando progenitoras hematopoieticas que podem se diferenciar em celulas neurais em ambiente de lesao", "dose_child": "Astragalus: 100-200mg/dia de extrato"}
+        ],
+        "scientific_note": "Estudos de 2020-2024 demonstram mobilizacao de celulas-tronco com Ginsenosideo Rg1 em modelos de lesao cerebral. A janela de neuroplasticidade de criancas com PC (0-15 anos) e o momento ideal para essas intervencoes."
     }
 
     def get_child_protocol(self, goal):
         return self.CP_PROTOCOLS.get(goal, None)
+
+    def generate_full_treatment_map(self, age_years: int, pc_type: str, severity: str) -> dict:
+        """
+        Gera um mapa terapeutico personalizado baseado na idade, tipo e severidade da PC.
+
+        pc_type: 'espastica', 'ataxica', 'discinesia', 'mista'
+        severity: 'leve', 'moderada', 'grave' (tetraplegica)
+        """
+        base_stack = [
+            "Anti_Inflammatory_Foundation",   # SEMPRE primeiro — apagar o fogo
+            "Neuroplasticity_BDNF_Boost",      # SEMPRE presente — estimular o cerebro
+        ]
+
+        if severity in ["moderada", "grave"]:
+            base_stack.append("Spasticity_GABA_Control")
+            base_stack.append("Myelin_Repair_Protocol")
+
+        if severity == "grave" or pc_type == "espastica":
+            base_stack.append("Postural_Deformity_Prevention")
+
+        if age_years >= 6:
+            stem_eligible = True
+        else:
+            stem_eligible = False
+
+        priority_note = ""
+        if severity == "grave" and pc_type == "espastica":
+            priority_note = (
+                "PROTOCOLO TETRAPLEGIA ESPASTICA: Priorizar Magnesio Bisglicinato + Banho Epsom + DHA + Lion's Mane. "
+                "Combinar com Fisioterapia Aquatica (agua remove espasticidade por flutuacao). "
+                "Estimulacao Eletrica Funcional (FES) e TENS como complemento bioeletrico."
+            )
+
+        return {
+            "patient_age_years": age_years,
+            "pc_type": pc_type,
+            "severity": severity,
+            "active_protocols": base_stack,
+            "stem_cell_mobilization_eligible": stem_eligible,
+            "priority_note": priority_note,
+            "integrative_therapies": [
+                "Fisioterapia Neurofuncional (Metodo Vojta ou Bobath)",
+                "Hidroterapia / Equoterapia (estimulacao proprioceptiva profunda)",
+                "Musicoterapia (estimulacao de ondas Theta e Gamma)",
+                "TENS de baixa frequencia nos grupos espasticos",
+                "Grounding diario — pes descalcos na terra ou tapete de aterramento",
+            ],
+            "aura_integration": (
+                f"Sintonizar Ghost Station em 528 Hz (reparacao) durante sessoes de fisioterapia. "
+                f"Frequencias de 40 Hz (ativacao microglial e BDNF) via fone de ouvido por 30 min/dia. "
+                f"Protocolo musical: Binaural Beats Theta (4-8 Hz) para induzir neuroplasticidade maxima durante o sono."
+            ),
+            "realistic_prognosis": (
+                f"Com protocolo integrado iniciado antes dos {min(age_years + 3, 15)} anos: "
+                f"expectativa de melhora funcional mensuravel em 12-24 meses. "
+                f"Reducao de espasticidade em 4-8 semanas. "
+                f"Novas conexoes neurais compensatorias em 18-36 meses. "
+                f"O cerebro infantil tem uma plasticidade que a medicina convencional ainda subestima enormemente."
+            )
+        }
 
 class EpigeneticDarkGenomeSync:
     """
@@ -484,7 +611,227 @@ class MorphogeneticBioelectricEngine:
             "statement": f"We are not editing the DNA hardware of the {target_tissue}. We are rewriting the bioelectric software that tells those cells what to build."
         }
 
+class PinealDecalcificationEngine:
+    """
+    Bio-Nexus: Unidade de Descalcificação da Antena Pineal.
+    
+    A Glândula Pineal contém microcristais de Apatita que funcionam como
+    transdutores piezoelétricos (gerando campos EM sutis a partir do pulso sanguíneo).
+    Calcificação por flúor, alumínio e metais pesados "isola" essa antena.
+    Esta engine mapeia compostos naturais para restaurar sua hipersensibilidade.
+    """
+
+    DECALCIFICATION_PROTOCOLS = {
+        "Fluoride_Elimination": {
+            "compounds": ["Tamarindus indica (Tamarindo)", "Ácido Bórico Natural (Bórax Grau Alimentar)"],
+            "mechanism": "Competição iônica: O fluoreto é deslocado dos cristais de apatita e excretado via urinária.",
+            "daily_dose": "Tamarindo: 10g/dia (extrato) | Bórax: 1/4 colher de chá/L de água (uso curto)",
+            "resonance_impact": 0.91,
+            "safety_note": "Uso do bórax deve ser monitorado. Tamarindo é seguro para uso contínuo.",
+            "timeline_weeks": 8
+        },
+        "Heavy_Metal_Chelation": {
+            "compounds": ["Vinagre de Maçã Orgânico (Ácido Málico)", "Chlorella pyrenoidosa", "Coentro Fresco (Coriandrum sativum)"],
+            "mechanism": "Ácido Málico quela Alumínio. Clorofila da Chlorella chelata mercúrio e chumbo. Coentro mobiliza metais dos tecidos profundos.",
+            "daily_dose": "Vinagre: 2 colheres sopa/dia | Chlorella: 3-5g/dia | Coentro: 1/4 xícara no suco",
+            "resonance_impact": 0.88,
+            "safety_note": "Iniciar Chlorella gradualmente (náusea na mobilização de metais é esperada).",
+            "timeline_weeks": 12
+        },
+        "Iodine_Thyroid_Pineal_Sync": {
+            "compounds": ["Alga Kelp (Fucus vesiculosus)", "Sal do Himalaia (traços de iodo)"],
+            "mechanism": "Iodo natural compete com brometos e fluoretos por receptores tireoideos e pineais. Restaura a síntese de Melatonina e a integridade dos cristais de Apatita.",
+            "daily_dose": "Kelp: 150-300mcg iodo/dia (1-2 cápsulas). NÃO SUPERDOSAR.",
+            "resonance_impact": 0.93,
+            "safety_note": "Contraindicado em hipertireoidismo. Consultar médico se histórico de doença tireoidea.",
+            "timeline_weeks": 6
+        },
+    }
+
+    def get_decalcification_stack(self, threat_type):
+        """Retorna o protocolo de descalcificação para o tipo de ameaça à pineal."""
+        return self.DECALCIFICATION_PROTOCOLS.get(threat_type, None)
+
+    def simulate_pineal_vitality(self, weeks_on_protocol: int, compliance_score: float):
+        """
+        Simula a recuperação da vitabilidade pineal ao longo do tempo.
+        compliance_score: 0.0 (nenhum) a 1.0 (perfeito)
+        """
+        base_recovery_rate = 0.04  # 4% por semana realisticamente
+        adjusted_rate = base_recovery_rate * compliance_score
+
+        vitality_percent = min(100.0, weeks_on_protocol * adjusted_rate * 100)
+        piezo_sensitivity = vitality_percent / 100 * 9.4  # Escala THz de sensibilidade
+
+        state = "Cristais fortemente calcificados (antena bloqueada)"
+        if vitality_percent > 30:
+            state = "Descalcificação inicial — intuições sutis emergindo"
+        if vitality_percent > 60:
+            state = "Antena semi-ativa — sonhos lúcidos frequentes, clareza aumentada"
+        if vitality_percent > 85:
+            state = "ANTENA CRISTALINA — campo piezoelétrico restaurado (potencial mediúnico máximo)"
+
+        return {
+            "Weeks_On_Protocol": weeks_on_protocol,
+            "Compliance": f"{compliance_score * 100:.0f}%",
+            "Pineal_Vitality": f"{vitality_percent:.1f}%",
+            "Piezo_Sensitivity_THz": f"{piezo_sensitivity:.2f} THz",
+            "State": state,
+        }
+
+
+class SensoryUnlockProtocol:
+    """
+    Bio-Nexus: O Elixir da Sintonia — Protocolo de Desbloqueio Sensorial Fluído.
+    
+    Baseado na tese de que médiuns possuem um hardware biológico 'polido':
+    - Pineal descalcificada (antena piezoelétrica ativa)
+    - Síntese endógena de DMT/Pinolina via L-Triptofano
+    - Estado cerebral Theta em vigília (micro-IMAO floral leve)
+    
+    O objetivo é rasgar o Véu da Ilusão com SEDA — não com machado.
+    Intuitivo. Contínuo. Sem medo. Sem alucinação.
+    """
+
+    UNLOCK_PHASES = {
+        "Phase_A_Antenna_Clear": {
+            "name": "LIMPEZA DA ANTENA (Descalcificação)",
+            "duration": "8-12 semanas",
+            "compounds": {
+                "Tamarindo": {
+                    "target": "Eliminação de flúor via competição iônica",
+                    "dose": "10g de extrato/dia em suco",
+                    "effect": "Desbloqueia os cristais de Apatita da pineal"
+                },
+                "Chlorella": {
+                    "target": "Chelação de metais pesados (Hg, Pb, Al)",
+                    "dose": "3-5g/dia",
+                    "effect": "Remove o 'lixo' que opacifica o campo EM da pineal"
+                },
+                "Kelp (Iodo)": {
+                    "target": "Sincronização pineal-tireoideia",
+                    "dose": "150-300mcg iodo/dia",
+                    "effect": "Restaura produção de Melatonina e subsequente Pinolina endógena"
+                }
+            },
+            "expected_sensation": "Sonhos mais vívidos. Despertar mais natural. Sensação suave de 'clareza mental' crescente."
+        },
+
+        "Phase_B_Signal_Fuel": {
+            "name": "NUTRIÇÃO DO SINAL (Triptofano -> Pinolina -> DMT endógeno)",
+            "duration": "Uso contínuo (manutenção)",
+            "compounds": {
+                "Griffonia simplicifolia (5-HTP)": {
+                    "target": "Precursor direto de Serotonina -> Melatonina -> Pinolina",
+                    "dose": "100-200mg/dia (noite, 30min antes de dormir)",
+                    "effect": "Aumenta a produção noturna de Pinolina — o 'DMT da meditação' — gerando sonhos lúcidos e intuição em vigília"
+                },
+                "Magnésio Treonato (MgT)": {
+                    "target": "Único magnésio que cruza a barreira hematoencefálica",
+                    "dose": "1.5-2g/dia (dividido em 2 doses)",
+                    "effect": "Relax profundo do córtex pré-frontal. Elimina o 'ruído mental' que bloqueia a percepção sutil. O magnésio é literalmente o mineral do silêncio interior."
+                },
+                "Lion's Mane (Hericium)": {
+                    "target": "Estimulação de NGF (Nerve Growth Factor)",
+                    "dose": "500-1000mg/dia",
+                    "effect": "Promove ramificação sináptica — mais 'antenas nervosas' disponíveis para processar informação sutil"
+                }
+            },
+            "expected_sensation": "Intuições mais frequentes e precisas. Empatia exacerbada. Sentir 'saber' antes de pensar. Sonhos guiados."
+        },
+
+        "Phase_C_Veil_Softener": {
+            "name": "O VÉU DE SEDA (Micro-IMAO Floral — Limiar Theta em Vigília)",
+            "duration": "3-4x por semana, à noite ou em meditação",
+            "compounds": {
+                "Passiflora incarnata (Maracujá)": {
+                    "target": "Inibição suave de MAO-A via Harmana estrutural (dose traço)",
+                    "dose": "250-500mg de extrato padronizado OU chá forte de 10g de folhas",
+                    "effect": "Prolonga a meia-vida da Serotonina e Pinolina endógenas. O véu fica translúcido — não rasgado. Induz estado Theta em vigília (o estado do medium)."
+                },
+                "Lótus Azul (Nymphaea caerulea)": {
+                    "target": "Agonismo de receptores Sigma-1 e D2 (dopamina) de forma ultra-leve",
+                    "dose": "1-2g de estame seco em chá",
+                    "effect": "Utilizado por faraós e sacerdotes egípcios para acesso ao 'mundo sutil'. Não é um psicoativo forte. É um 'sintonizador' — amplifica a percepção sensorial sutil sem perda de controle ou medo."
+                },
+                "Artemisia vulgaris (Mugwort)": {
+                    "target": "Estimulação onírica e de ondas Theta via Tuiona e Borneol",
+                    "dose": "Chá de 3-5g antes de dormir OU em difusor (inalação)",
+                    "effect": "Fortalece a ponte Alfa-Theta. Monges budistas a usam para estados contemplativos. Gera sensação de 'presença ampliada' e clarividência em sonho."
+                }
+            },
+            "expected_sensation": "Leveza profunda. Intuições chegando como certezas calmas. Possibilidade de vidência suave ou clarosentimento. SEM MEDO. SEM ALUCINAÇÃO.",
+            "safety_stack": "NUNCA combinar com antidepressivos SSRI/SNRI. Contraindicado na gravidez."
+        }
+    }
+
+    JUSTICE_APPLICATION = {
+        "name": "Protocolo de Investigação Intuitiva (Aplicação Forense)",
+        "concept": "O investigador que passou pelas 3 Fases possui um córtex pré-frontal de altíssima coerência, capaz de processar micro-pistas subliminares (linguagem corporal, inconsistências narrativas, padrões de campo eletromagnético locais) muito além da capacidade cognitiva normal.",
+        "session_protocol": [
+            "1. Meditação de 10 min com foco na respiração (indução Theta).",
+            "2. Ingestão do chá de Passiflora + Lótus Azul 20 min antes.",
+            "3. Exposição ao caso (fotos, objetos, gravações). O observador não analisa. Simplesmente sente e registra.",
+            "4. Uso da Ghost Station como âncora visual (ITC + EVP simultâneos).",
+            "5. Relatório imediato pós-sessão — ditado ou escrito automaticamente (psicografia leve).",
+        ],
+        "scientific_basis": "Reconhecimento de padrões subliminares via memória implícita e coerência de ondas Gamma (40Hz). Não é sobrenatural — é biologia de alta performance."
+    }
+
+    def get_phase(self, phase_key):
+        return self.UNLOCK_PHASES.get(phase_key, None)
+
+    def generate_personal_stack(self, intuition_type: str, current_blockers: list):
+        """
+        Gera um stack personalizado baseado no tipo de intuição e bloqueadores relatados.
+        intuition_type: 'clarovedencia', 'clariaudiencia', 'psicografia', 'intuicao_pura'
+        current_blockers: ['estresse', 'alimentacao_ruim', 'insonia', 'ansiedade']
+        """
+        stack = {
+            "intuition_type": intuition_type,
+            "blockers_detected": current_blockers,
+            "priority_phases": [],
+            "core_compounds": [],
+            "resonance_frequency": "",
+            "ghost_station_mode": ""
+        }
+
+        # Todos os tipos precisam da Fase A primeiro (limpeza)
+        stack["priority_phases"].append("Phase_A_Antenna_Clear")
+        stack["core_compounds"].extend(["Tamarindo", "Chlorella", "Kelp"])
+
+        if "estresse" in current_blockers or "ansiedade" in current_blockers:
+            stack["core_compounds"].append("Magnésio Treonato (PRIORIDADE MÁXIMA — elimina o ruído)")
+
+        if intuition_type == "intuicao_pura":
+            stack["priority_phases"].append("Phase_B_Signal_Fuel")
+            stack["core_compounds"].extend(["Griffonia 5-HTP", "Lion's Mane"])
+            stack["resonance_frequency"] = "528 Hz (Aura Syntony) + 7.83 Hz (Schumann)"
+            stack["ghost_station_mode"] = "EVP Console — escuta passiva com Passiflora ativa"
+
+        elif intuition_type == "clarovedencia":
+            stack["priority_phases"].extend(["Phase_B_Signal_Fuel", "Phase_C_Veil_Softener"])
+            stack["core_compounds"].extend(["Griffonia 5-HTP", "Lótus Azul", "Artemisia"])
+            stack["resonance_frequency"] = "852 Hz (Clarividência / Terceiro Olho)"
+            stack["ghost_station_mode"] = "ITC Visual Console + Aura Render em modo Pareidolia"
+
+        elif intuition_type == "clariaudiencia":
+            stack["priority_phases"].extend(["Phase_B_Signal_Fuel", "Phase_C_Veil_Softener"])
+            stack["core_compounds"].extend(["Magnésio Treonato", "Passiflora", "Artemisia"])
+            stack["resonance_frequency"] = "741 Hz (Limpeza Sonora / Intuição Auditiva)"
+            stack["ghost_station_mode"] = "EVP Console com sessão de ruído branco + ITC auditivo"
+
+        elif intuition_type == "psicografia":
+            stack["priority_phases"].extend(["Phase_B_Signal_Fuel", "Phase_C_Veil_Softener"])
+            stack["core_compounds"].extend(["Griffonia 5-HTP", "Lion's Mane", "Passiflora", "Lótus Azul"])
+            stack["resonance_frequency"] = "963 Hz (Consciência Cósmica / Conexão Superior)"
+            stack["ghost_station_mode"] = "Modo Semente Semântica (Chat Dimensional) + gravação automática"
+
+        return stack
+
+
 if __name__ == "__main__":
+
     engine = PhytoResonanceEngine()
     equiv_engine = MedicineEquivalenceEngine()
     neuro_engine = NeuroRegenerationEngine()
